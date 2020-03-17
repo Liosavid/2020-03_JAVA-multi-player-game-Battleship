@@ -2,10 +2,7 @@ package com.codeoftheweb.salvo;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -18,7 +15,13 @@ public class GamePlayer {
     private long id;
     private Date joinDate;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="player_id")
     private Player player;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="game_id")
+    private Game game;
 
 
     public Date getJoinDate() {
