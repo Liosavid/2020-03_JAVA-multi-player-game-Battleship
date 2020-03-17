@@ -15,6 +15,7 @@ public class GamePlayer {
     private long id;
     private Date joinDate;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="player_id")
     private Player player;
@@ -23,6 +24,22 @@ public class GamePlayer {
     @JoinColumn(name="game_id")
     private Game game;
 
+
+    public GamePlayer (Game game, Player player){
+        this.joinDate = new Date();
+        this.player = player;
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public GamePlayer() { }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     public Date getJoinDate() {
         return joinDate;
@@ -39,5 +56,13 @@ public class GamePlayer {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
