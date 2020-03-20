@@ -18,7 +18,7 @@ showListGames(games);
 
 function showListGames(data){
 
-let listGamePlayers = data.map(game => '<li>' + 'Game number ' + game.game_id + ' Date : ' + new Date(game.game_creation_date).toLocaleString() + ' - Players : ' + game.gamePlayers.map(gp => gp.player.user_name ) + '</li>');
+let listGamePlayers = data.map(game => '<li>' + 'Game number ' + game.game_id + ' ' + new Date(game.game_creation_date).toLocaleString() + '</li>');
 console.log(listGamePlayers);
 listGamePlayers.map(gp => console.log(gp));
 
