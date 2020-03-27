@@ -1,0 +1,11 @@
+td{
+
+  width:100px;
+  height:100px;
+  border: 4px dotted rgb(198, 198, 238);
+}
+
+th{
+
+  background-color: rgb(170, 102, 102);
+}

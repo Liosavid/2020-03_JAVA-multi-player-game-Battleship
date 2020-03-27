@@ -6,7 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -53,20 +56,43 @@ game3.setGameCreationDate(game3Date);
 
 		// GAMEPLAYER REPOSITORY
 
-			GamePlayer firstMatch1 = new GamePlayer(game1, player2);
-			gamePlayerRepository.save(firstMatch1);
-			GamePlayer firstMatch2= new GamePlayer(game1,player1);
-			gamePlayerRepository.save(firstMatch2);
+			GamePlayer gamePlayer1 = new GamePlayer(game1, player2);
+			GamePlayer gamePlayer2= new GamePlayer(game1,player1);
+			GamePlayer gamePlayer3 = new GamePlayer(game2, player3);
+			GamePlayer gamePlayer4 = new GamePlayer(game2, player1);
+			GamePlayer gamePlayer5 = new GamePlayer(game3, player2);
+			GamePlayer gamePlayer6 = new GamePlayer(game3, player3);
 
-			GamePlayer secondMatch1 = new GamePlayer(game2, player3);
-			gamePlayerRepository.save(secondMatch1);
-			GamePlayer secondMatch2 = new GamePlayer(game2, player1);
-			gamePlayerRepository.save(secondMatch2);
+			gamePlayerRepository.save(gamePlayer1);
+			gamePlayerRepository.save(gamePlayer2);
+			gamePlayerRepository.save(gamePlayer3);
+			gamePlayerRepository.save(gamePlayer4);
+			gamePlayerRepository.save(gamePlayer5);
+			gamePlayerRepository.save(gamePlayer6);
 
-			GamePlayer thirdMatch1 = new GamePlayer(game3, player2);
-			gamePlayerRepository.save(thirdMatch1);
-			GamePlayer thirdMatch2 = new GamePlayer(game3, player3);
-			gamePlayerRepository.save(thirdMatch2);
+			// NEW LOCATIONS
+
+			List<String> location1 = new ArrayList<>(Arrays.asList("H2", "H3", "H4"));
+			List<String> location2 = new ArrayList<>(Arrays.asList("E1", "F1", "G1"));
+			List<String> location3 = new ArrayList<>(Arrays.asList("B4", "B5", "B6", "B7", "B8"));
+			List<String> location4 = new ArrayList<>(Arrays.asList("E1", "F1", "G1"));
+			List<String> location5 = new ArrayList<>(Arrays.asList("C5", "D5", "E5", "F5"));
+			List<String> location6 = new ArrayList<>(Arrays.asList("H7", "H8"));
+
+			// NEW SHIPS
+
+			Ship ship1 = new Ship("DESTROYER", gamePlayer1, location1);
+			Ship ship2 = new Ship("SUBMARINE", gamePlayer1, location2);
+			Ship ship3 = new Ship("CARRIER", gamePlayer2, location3);
+			Ship ship4 = new Ship("BATTLESHIP", gamePlayer2, location4);
+			Ship ship5 = new Ship("PATROL_BOAT", gamePlayer3, location5);
+
+			shipRepository.save(ship1);
+			shipRepository.save(ship2);
+			shipRepository.save(ship3);
+			shipRepository.save(ship4);
+			shipRepository.save(ship5);
+
 
 		};
 	}

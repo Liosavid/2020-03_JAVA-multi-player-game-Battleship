@@ -1,6 +1,7 @@
 package com.codeoftheweb.salvo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +33,7 @@ public class SalvoController {
                 .collect(Collectors.toList());
     }
 
+
     private Map<String, Object> makeGamesDTO(Game game) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("game_id", game.getGameId());
@@ -61,4 +63,46 @@ public class SalvoController {
         return dto;
     }
 
+    private Map<String, Object> makeShipsDTO(Ship ship) {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("type", ship.getShipType());
+        dto.put("locations", ship.getShipLocations());
+        return dto;
+    }
+
+    @RequestMapping("/game_view/{gpId}")
+    public Map<String,Object> getGameView(@PathVariable Long gpId) {
+        //Game g1 = gameRepository.findById(gameId).get();
+        GamePlayer gamePlayer = gamePlayerRepository.findById(gpId).get();
+        Map<String, Object> dto = new LinkedHashMap<>();
+        dto.put("gameId", gamePlayer.getGame().getGameId());
+        dto.put("created", gamePlayer.getGame().getGameCreationDate());
+        dto.put("gamePlayers", gamePlayer.getGame().getGamePlayers().stream().map(gp -> makeGamePlayersDTO(gp))
+                .collect(Collectors.toList()));
+        dto.put("ships", gamePlayer.getShips().stream().map(ship -> makeShipsDTO(ship))
+                .collect(Collectors.toList()));
+
+        /*
+        System.out.println(g1.getGameId());
+            Map<String, Object> dto = new LinkedHashMap<>();
+        dto.put("gameId", g1.getGameId());
+        dto.put("created", g1.getGameCreationDate());
+
+        dto.put("gamePlayers", g1.getGamePlayers()
+                .stream()
+                .map(gamePlayer -> makeGamePlayersDTO(gamePlayer))
+                .collect(Collectors.toList()));
+
+        dto.put("ship", g1.getGamePlayers()
+                .stream()
+                .map(gp -> gp.getShips()
+                        .stream()
+                        .map(ship -> makeShipsDTO(ship))
+                        .collect(Collectors.toList())));
+*/
+
+        return dto;
+
+
+    }
 }
