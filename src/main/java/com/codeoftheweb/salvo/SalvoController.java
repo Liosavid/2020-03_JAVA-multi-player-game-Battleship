@@ -34,6 +34,11 @@ public class SalvoController {
     }
 
 
+    //Via DTO's - Data Transfer Objects, i can structure the way i want my data returned to me, via either
+    //Maps, which are shown as Objects in JSON, or Lists, which are shown as arrays.
+
+
+
     private Map<String, Object> makeGamesDTO(Game game) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("game_id", game.getGameId());
@@ -47,6 +52,8 @@ public class SalvoController {
     }
 
     //Gets Player Information for each game
+
+
     private Map<String, Object> makeGamePlayersDTO(GamePlayer gamePlayer) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("gamePlayer_id", gamePlayer.getGamePlayerId());
@@ -70,6 +77,17 @@ public class SalvoController {
         return dto;
     }
 
+    private Map<String, Object> makeSalvoesDTO(Salvo salvo) {
+        Map<String, Object> dto = new LinkedHashMap<>();
+        dto.put("gamePlayerId", salvo.getGamePlayer().getGamePlayerId());
+        dto.put("turn", salvo.getTurn());
+        dto.put("locations", salvo.getSalvoLocations());
+        return dto;
+    }
+    private List<Object> makeGamePlayersSalvo(GamePlayer gamePlayer) {
+        return gamePlayer.getSalvoes().stream().map(salvo -> makeSalvoesDTO(salvo)).collect(Collectors.toList());
+    }
+
     @RequestMapping("/game_view/{gpId}")
     public Map<String,Object> getGameView(@PathVariable Long gpId) {
         //Game g1 = gameRepository.findById(gameId).get();
@@ -81,6 +99,12 @@ public class SalvoController {
                 .collect(Collectors.toList()));
         dto.put("ships", gamePlayer.getShips().stream().map(ship -> makeShipsDTO(ship))
                 .collect(Collectors.toList()));
+        dto.put("salvoes", gamePlayer.getGame().getGamePlayers().stream().map(gp -> makeGamePlayersSalvo(gp))
+                .collect(Collectors.toList()));
+
+
+
+
 
         /*
         System.out.println(g1.getGameId());
