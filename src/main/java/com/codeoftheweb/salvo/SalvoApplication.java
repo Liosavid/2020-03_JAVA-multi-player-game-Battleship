@@ -78,6 +78,7 @@ game3.setGameCreationDate(game3Date);
 			List<String> location4 = new ArrayList<>(Arrays.asList("E1", "F1", "G1"));
 			List<String> location5 = new ArrayList<>(Arrays.asList("C5", "D5", "E5", "F5"));
 			List<String> location6 = new ArrayList<>(Arrays.asList("H7", "H8"));
+			List<String> location7 = new ArrayList<>(Arrays.asList("B7", "D5", "A3"));
 
 			// NEW SHIPS
 
@@ -95,9 +96,9 @@ game3.setGameCreationDate(game3Date);
 
 			// NEW SALVOES
 
-			Salvo salvo1 = new Salvo(1, gamePlayer1, location1);
-			Salvo salvo2 = new Salvo(1, gamePlayer2, location2);
-			Salvo salvo3 = new Salvo(2, gamePlayer1, location3);
+			Salvo salvo1 = new Salvo(1, gamePlayer1, location5);
+			Salvo salvo2 = new Salvo(1, gamePlayer2, location6);
+			Salvo salvo3 = new Salvo(2, gamePlayer1, location7);
 			Salvo salvo4 = new Salvo(2, gamePlayer2, location4);
 			Salvo salvo5 = new Salvo(1, gamePlayer3, location5);
 

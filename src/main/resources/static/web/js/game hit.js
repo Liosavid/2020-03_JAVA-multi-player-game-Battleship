@@ -70,8 +70,6 @@ function printSalvoes (data) {
  }
 
 function printOpponentSalvoes (data) {
-          let ship = data.ships;
-
         console.log("HOLA lio");
         console.log(data.salvoes[0]);
           console.log("HOLA liooooo");
@@ -83,24 +81,22 @@ function printOpponentSalvoes (data) {
 
             $.each(salvo, function (index, salvo) {
 
-                $.each(salvo.locations, function (index, locationSalvo_Opponent) {
+                $.each(salvo.locations, function (index, locationSalvo) {
+         //       if(salvo[0].location == salvo[1].location){
+         console.log(locationSalvo);
+
+          let ship = data.ships;
 
                      $.each(ship, function (index, ship) {
-                       console.log("ship.locations");
-                       console.log(ship.locations);
-                         console.log("jen ai marre");
-
                          $.each(ship.locations, function (index, location){
+         if( location == locationSalvo){
 
 
-         if( location != locationSalvo_Opponent){
-$("#table_ship ." + locationSalvo_Opponent).css({"background-color": "orange"})
-                    $("#table_ship ." + locationSalvo_Opponent).html('Turn ' + salvo.turn);
-
-} else if ( location == locationSalvo_Opponent){
-console.log("coucou");
-$("#table_ship ." + location).css({"background-color": "red", "font-size": "150%"});
-                    }
+                    $("#table_ship ." + locationSalvo).css({"background-color": "red", "font-size": "200%"});
+                    $("#table_ship ." + locationSalvo).html('HIT');
+} else{
+console.log("prout");
+}
 
 
         })
