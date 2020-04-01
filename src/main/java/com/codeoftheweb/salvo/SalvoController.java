@@ -23,6 +23,15 @@ public class SalvoController {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Autowired
+    private ShipRepository shipRepository;
+
+    @Autowired
+    private SalvoRepository salvoRepository;
+
+    @Autowired
+    private ScoreRepository scoreRepository;
+
 
     @RequestMapping("/games")
     public List<Map<String,Object>> getAllGames() {
@@ -58,6 +67,7 @@ public class SalvoController {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
         dto.put("gamePlayer_id", gamePlayer.getGamePlayerId());
         dto.put("player", makePlayersDTO(gamePlayer.getPlayer()));
+
 
         return dto;
     }

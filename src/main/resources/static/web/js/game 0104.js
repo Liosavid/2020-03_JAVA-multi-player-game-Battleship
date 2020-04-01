@@ -45,7 +45,7 @@ if(data.gamePlayers[0].gamePlayer_id == getParameterByName('gp')){
 
             $.each(ship, function (index, ship) {
                 $.each(ship.locations, function (index, location) {
-                    $("#table_ship ." + location).css("background-color", '#00FF00');
+                    $("#table_ship ." + location).css("background-color", "green");
                     $("#table_ship ." + location).html(ship.type);
 
                 })
@@ -81,11 +81,8 @@ function printOpponentSalvoes (data) {
             $.each(salvo, function (index, salvo) {
 
                 $.each(salvo.locations, function (index, locationSalvo_Opponent) {
-
-                var firstDiv = $("#table_ship ." + locationSalvo_Opponent);
-                console.log(locationSalvo_Opponent);
                 console.log("HOLA GONZALO");
-if (firstDiv.css('background-color') ==='#00FF00'){
+if($("#table_ship ." + locationSalvo_Opponent).css({"background-color": "orange"})) {
         $("#table_ship ." + location).css({"background-color": "red", "font-size": "150%"});
 
 }else{
@@ -93,6 +90,17 @@ $("#table_ship ." + locationSalvo_Opponent).css({"background-color": "orange"})
                     $("#table_ship ." + locationSalvo_Opponent).html('Turn ' + salvo.turn);
 
 }
+
+//if(document.getElementById(
+         if( location != locationSalvo_Opponent){
+$("#table_ship ." + locationSalvo_Opponent).css({"background-color": "orange"})
+                    $("#table_ship ." + locationSalvo_Opponent).html('Turn ' + salvo.turn);
+
+} else if ( location == locationSalvo_Opponent){
+console.log("coucou");
+$("#table_ship ." + location).css({"background-color": "red", "font-size": "150%"});
+                    }
+
 
 //}
                 })
