@@ -111,32 +111,25 @@ public class SalvoController {
                 .collect(Collectors.toList()));
         dto.put("salvoes", gamePlayer.getGame().getGamePlayers().stream().map(gp -> makeGamePlayersSalvo(gp))
                 .collect(Collectors.toList()));
-
-
-
-
-
-        /*
-        System.out.println(g1.getGameId());
-            Map<String, Object> dto = new LinkedHashMap<>();
-        dto.put("gameId", g1.getGameId());
-        dto.put("created", g1.getGameCreationDate());
-
-        dto.put("gamePlayers", g1.getGamePlayers()
-                .stream()
-                .map(gamePlayer -> makeGamePlayersDTO(gamePlayer))
+        dto.put("score",gamePlayer.getGame().getScores().stream().map(score -> makeScoresDTO(score))
                 .collect(Collectors.toList()));
-
-        dto.put("ship", g1.getGamePlayers()
-                .stream()
-                .map(gp -> gp.getShips()
-                        .stream()
-                        .map(ship -> makeShipsDTO(ship))
-                        .collect(Collectors.toList())));
-*/
 
         return dto;
 
 
     }
+
+    private Map<String, Object> makeScoresDTO(Score score) {
+        Map<String, Object> dto = new LinkedHashMap<String, Object>();
+        dto.put("ScoreId", score.getScoreId());
+        dto.put("score", score.getScore());
+        dto.put("player",makePlayersDTO(score.getPlayer()));
+        return dto;
+
+    }
+
+
+    // GAME PAGE -  returning data to build list of games + scores
+
+    //@RequestMapping("/games")
 }

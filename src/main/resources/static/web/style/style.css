@@ -24,6 +24,14 @@ width:500px;
 
 
 }
+.backgroundRed{
+    background-color:red !important;
+    text-align:center;
+    font-size:20px;
+
+}
+
+
 
 #tables_currentPlayer{
 align-items:center;

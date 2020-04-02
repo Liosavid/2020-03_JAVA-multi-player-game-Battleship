@@ -85,16 +85,19 @@ function printOpponentSalvoes (data) {
                 var firstDiv = $("#table_ship ." + locationSalvo_Opponent);
                 console.log(locationSalvo_Opponent);
                 console.log("HOLA GONZALO");
-if (firstDiv.css('background-color') ==='#00FF00'){
-        $("#table_ship ." + location).css({"background-color": "red", "font-size": "150%"});
+                console.log(firstDiv.css('background-color'))
+if (firstDiv.css('background-color') ==='rgb(0, 255, 0)'){
+          var element = document.getElementsByClassName(locationSalvo_Opponent);
+          element[0].classList.add("backgroundRed"); //[0] for left board.
+          element[0].textContent = "HIT";
+
+
 
 }else{
 $("#table_ship ." + locationSalvo_Opponent).css({"background-color": "orange"})
                     $("#table_ship ." + locationSalvo_Opponent).html('Turn ' + salvo.turn);
 
 }
-
-//}
                 })
 
             })
