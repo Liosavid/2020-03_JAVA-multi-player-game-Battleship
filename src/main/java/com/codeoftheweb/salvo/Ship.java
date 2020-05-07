@@ -16,6 +16,7 @@ public class Ship {
     private long shipId;
 
     private String shipType;
+    private boolean sunk;
 
     @ElementCollection
     @Column(name="shipLocation")
@@ -27,10 +28,12 @@ public class Ship {
 
     public Ship() {}
 
+
     public Ship (String type, GamePlayer gamePlayer, List<String> shipLocations) {
         this.shipType = type;
         this.gamePlayer = gamePlayer;
         this.shipLocations = shipLocations;
+        this.sunk = false;
 
     }
 
@@ -67,6 +70,15 @@ public class Ship {
 
     public void setGamePlayer(GamePlayer gamePlayer) {
         this.gamePlayer = gamePlayer;
+    }
+
+
+    public boolean isSunk() {
+        return sunk;
+    }
+
+    public void setSunk(boolean sunk) {
+        this.sunk = sunk;
     }
 
 

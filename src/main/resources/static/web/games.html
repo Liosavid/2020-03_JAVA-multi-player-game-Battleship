@@ -1,16 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./style/style.css">
     <meta charset="UTF-8">
     <title>Salvo</title>
 </head>
 <body>
+<div class="container mt-5">
 
-<ol id="game-list">
-</ol>
+    <div class="row mt-4 top_games">
+
+<div id="player-logged-in"></div>
+
+
+    <div class="row mt-4">
+<div>
+<button id="createNewGame" type="button">Start New Game</button>
+
+
+</div>
+
+<div id="games-container">
+<div id="forms-logs">
+<div id="form-login"> <div class="form-title"> Sign in:</div>
+    <form onsubmit="return false">
+        <label>Name: <input type="text" id="username" name="username"></label>
+        <label>Password: <input type="text" id="password" name="password"></label>
+        <button  id="login-submit">Log in</button>
+    </form>
+</div>
+  <div id="form-logout" style="display: none">
+    <form onsubmit="return false">
+        <button id="logout-submit" >Log out</button>
+    </form>
+
+</div>
+
+<div id="form-signup"><div class="form-title"> Sign up:</div>
+    <form onsubmit="return false">
+        <label>Name: <input type="text"  class= "username" name="username"></label>
+        <label>Password: <input type="text" class="password" name="password"></label>
+        <button id="signup-submit">Sign up</button>
+
+    </form>
+
+
+</div>
+</div>
+</div>
+    </div>
+    <div class="row">
+
+<table id="table-leaderboard" class="col m-3">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col" data-column="total" data-order="desc">Total</th>
+        <th scope="col">Won</th>
+        <th scope="col">Lost</th>
+        <th scope="col">Tied</th>
+        <th scope="col">Number of games</th>
+    </tr>
+
+    </thead>
+    <tbody id="leaderBoard">
+    </tbody>
+</table>
+
+
+    <table id="table-gameboard" class="col m-3">
+        <thead>
+        <tr>
+            <th scope="col">Created on</th>
+            <th scope="col">Player 1</th>
+            <th scope="col">Player 2</th>
+            <th scope="col">Actions</th>
+        </tr>
+
+        </thead>
+        <tbody id="gameBoard">
+        </tbody>
+    </table>
+    </div>
+</div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="./js/games.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
 </html>

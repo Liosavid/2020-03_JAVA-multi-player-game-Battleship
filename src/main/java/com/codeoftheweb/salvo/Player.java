@@ -16,7 +16,7 @@ public class Player {
     @GenericGenerator(name = "native", strategy = "native")
     private long userId;
     private String userName;
-
+    private String password;
 
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     Set<GamePlayer> gamePlayers;
@@ -32,7 +32,6 @@ public class Player {
         this.scores = scores;
     }
 
-
     public Set<GamePlayer> getGamePlayers() {
         return gamePlayers;
     }
@@ -47,8 +46,9 @@ public class Player {
 
     public Player() { }
 
-    public Player(String username) {
+    public Player(String username, String password) {
         this.userName = username;
+        this.password = password;
     }
 
     public String getUserName() {
@@ -74,4 +74,17 @@ public class Player {
     public List<Game> getGames(){
         return this.gamePlayers.stream().map(game -> game.getGame()).collect(Collectors.toList());
     }
+
+    public Score getScore(Game game) {
+        return scores.stream().filter(score -> score.getGame().getGameId() == game.getGameId()).findFirst().orElse(null);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }

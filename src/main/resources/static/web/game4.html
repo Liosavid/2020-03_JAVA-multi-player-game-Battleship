@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="./style/style.css">
+    <meta charset="UTF-8">
+    <title>Ship Locations</title>
+</head>
+<body>
+
+<div id="form-logout">
+    <form onsubmit="return false">
+        <button id="logout-submit" >Log out</button>
+    </form>
+
+</div>
+
+<div id="game-information"></div>
+
+<div id="tables_currentPlayer">
+
+<div id="board_ships">
+    <div id="ships_images">
+
+       <img id="carrier" data-size="5" class="draggable" src="./images/carrier.png" draggable="true" ondragstart="drag(event)"/>
+        <img id="destroyer" data-size="3" class="draggable" src="./images/destroyer.png" draggable="true" ondragstart="drag(event)"/>
+        <img id="patrol" data-size="2" class="draggable" src="./images/patrol.png" draggable="true" ondragstart="drag(event)"/>
+        <img id="submarine" data-size="3" class="draggable" src="./images/submarine.png" draggable="true" ondragstart="drag(event)"/>
+        <img id="battleship" data-size="4" class="draggable" src="./images/battleship.png" draggable="true" ondragstart="drag(event)"/>
+
+    </div>
+
+<table id="table_ship">
+    <caption>Your Ships:</caption>
+    <tr>
+        <td></td>
+        <th scope="col">1</th>
+        <th scope="col">2</th>
+        <th scope="col">3</th>
+        <th scope="col">4</th>
+        <th scope="col">5</th>
+        <th scope="col">6</th>
+        <th scope="col">7</th>
+        <th scope="col">8</th>
+    </tr>
+    <tbody>
+    <tr class="test">
+        <th scope="row">A</th>
+        <td class="A1 container_ships"></td>
+        <td class="A2"></td>
+        <td class="A3"></td>
+        <td class="A4"></td>
+        <td class="A5"></td>
+        <td class="A6"></td>
+        <td class="A7"></td>
+        <td class="A8"></td>
+    </tr>
+    <tr>
+        <th scope="row">B</th>
+        <td class="B1"></td>
+        <td class="B2"></td>
+        <td class="B3"></td>
+        <td class="B4"></td>
+        <td class="B5"></td>
+        <td class="B6"></td>
+        <td class="B7"></td>
+        <td class="B8"></td>
+    </tr>
+    <tr>
+        <th scope="row">C</th>
+        <td class="C1"></td>
+        <td class="C2"></td>
+        <td class="C3"></td>
+        <td class="C4"></td>
+        <td class="C5"></td>
+        <td class="C6"></td>
+        <td class="C7"></td>
+        <td class="C8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">D</th>
+        <td class="D1"></td>
+        <td class="D2"></td>
+        <td class="D3"></td>
+        <td class="D4"></td>
+        <td class="D5"></td>
+        <td class="D6"></td>
+        <td class="D7"></td>
+        <td class="D8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">E</th>
+        <td class="E1"></td>
+        <td class="E2"></td>
+        <td class="E3"></td>
+        <td class="E4"></td>
+        <td class="E5"></td>
+        <td class="E6"></td>
+        <td class="E7"></td>
+        <td class="E8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">F</th>
+        <td class="F1"></td>
+        <td class="F2"></td>
+        <td class="F3"></td>
+        <td class="F4"></td>
+        <td class="F5"></td>
+        <td class="F6"></td>
+        <td class="F7"></td>
+        <td class="F8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">G</th>
+        <td class="G1"></td>
+        <td class="G2"></td>
+        <td class="G3"></td>
+        <td class="G4"></td>
+        <td class="G5"></td>
+        <td class="G6"></td>
+        <td class="G7"></td>
+        <td class="G8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">H</th>
+        <td class="H1"></td>
+        <td class="H2"></td>
+        <td class="H3"></td>
+        <td class="H4"></td>
+        <td class="H5"></td>
+        <td class="H6"></td>
+        <td class="H7"></td>
+        <td class="H8"></td>
+
+    </tr>
+    </tbody>
+
+</table>
+</div>
+
+<table id="table_salvo">
+    <caption>Your Salvoes:</caption>
+    <tr>
+        <td></td>
+        <th scope="col">1</th>
+        <th scope="col">2</th>
+        <th scope="col">3</th>
+        <th scope="col">4</th>
+        <th scope="col">5</th>
+        <th scope="col">6</th>
+        <th scope="col">7</th>
+        <th scope="col">8</th>
+    </tr>
+    <tr class="test">
+        <th scope="row">A</th>
+        <td class="A1"></td>
+        <td class="A2"></td>
+        <td class="A3"></td>
+        <td class="A4"></td>
+        <td class="A5"></td>
+        <td class="A6"></td>
+        <td class="A7"></td>
+        <td class="A8"></td>
+    </tr>
+    <tr>
+        <th scope="row">B</th>
+        <td class="B1"></td>
+        <td class="B2"></td>
+        <td class="B3"></td>
+        <td class="B4"></td>
+        <td class="B5"></td>
+        <td class="B6"></td>
+        <td class="B7"></td>
+        <td class="B8"></td>
+    </tr>
+    <tr>
+        <th scope="row">C</th>
+        <td class="C1"></td>
+        <td class="C2"></td>
+        <td class="C3"></td>
+        <td class="C4"></td>
+        <td class="C5"></td>
+        <td class="C6"></td>
+        <td class="C7"></td>
+        <td class="C8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">D</th>
+        <td class="D1"></td>
+        <td class="D2"></td>
+        <td class="D3"></td>
+        <td class="D4"></td>
+        <td class="D5"></td>
+        <td class="D6"></td>
+        <td class="D7"></td>
+        <td class="D8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">E</th>
+        <td class="E1"></td>
+        <td class="E2"></td>
+        <td class="E3"></td>
+        <td class="E4"></td>
+        <td class="E5"></td>
+        <td class="E6"></td>
+        <td class="E7"></td>
+        <td class="E8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">F</th>
+        <td class="F1"></td>
+        <td class="F2"></td>
+        <td class="F3"></td>
+        <td class="F4"></td>
+        <td class="F5"></td>
+        <td class="F6"></td>
+        <td class="F7"></td>
+        <td class="F8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">G</th>
+        <td class="G1"></td>
+        <td class="G2"></td>
+        <td class="G3"></td>
+        <td class="G4"></td>
+        <td class="G5"></td>
+        <td class="G6"></td>
+        <td class="G7"></td>
+        <td class="G8"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">H</th>
+        <td class="H1"></td>
+        <td class="H2"></td>
+        <td class="H3"></td>
+        <td class="H4"></td>
+        <td class="H5"></td>
+        <td class="H6"></td>
+        <td class="H7"></td>
+        <td class="H8"></td>
+
+    </tr>
+
+
+</table>
+
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="./js/game.js"></script>
+
+</body>
+</html>
