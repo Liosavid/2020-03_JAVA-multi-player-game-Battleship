@@ -1,4 +1,30 @@
-let tableShip_tds = document.querySelectorAll("#table_ship td");
+
+let interval = setInterval(function() { console.log("Fetching"); getData(); }, 30000);
+
+let globalObject= [
+
+  {shipType: "CARRIER",
+  shipLocations: []
+  },
+  
+  {shipType: "BATTLESHIP",
+  shipLocations: []
+  },
+  
+  {shipType: "SUBMARINE",
+  shipLocations: []
+  },
+  
+  {shipType: "DESTROYER",
+  shipLocations: []
+  },
+  
+  {shipType: "PATROL_BOAT",
+  shipLocations: []
+  } ]
+  
+
+let tableShip_tds = document.querySelectorAll("#table_ships td");
 addChangeOrientation();
 clickOnSalvoCell();
 let salvoArray = [];
@@ -19,30 +45,6 @@ addSalvoLocationsToBackEnd(parameterFromUrl);
 
 
 
-
-
-  let globalObject= [
-
-{shipType: "CARRIER",
-shipLocations: []
-},
-
-{shipType: "BATTLESHIP",
-shipLocations: []
-},
-
-{shipType: "SUBMARINE",
-shipLocations: []
-},
-
-{shipType: "DESTROYER",
-shipLocations: []
-},
-
-{shipType: "PATROL_BOAT",
-shipLocations: []
-} ]
-
    function addShipLocationsToBackEnd(gamePlayerId){
 
     fetch("/api/games/players/" + gamePlayerId + "/ships"
@@ -53,6 +55,10 @@ shipLocations: []
     },
     body:JSON.stringify(globalObject)
     } ).then(res=> res.json()).then(data=> console.log(data))
+        .then (alert("Ships placed with success!"))
+         .then(window.location = "/web/game.html?gp=" + gamePlayerId);
+
+
 
  function getBody(json) {
    var body = [];
@@ -77,6 +83,9 @@ function addSalvoLocationsToBackEnd(gamePlayerId){
     },
     body:JSON.stringify(salvoArray)
     } ).then(res=> res.json()).then(data=> console.log(data))
+    .then (alert("Salvoes placed with success!")).then(window.location = "/web/game.html?gp=" + gamePlayerId);
+
+
 
  function getBody(json) {
    var body = [];
@@ -92,7 +101,9 @@ function addSalvoLocationsToBackEnd(gamePlayerId){
 
 let parameterFromUrl= getParameterByName("gp");
 console.log(parameterFromUrl);
+getData ();
 
+function getData () {
 fetch("http://localhost:8080/api/game_view/"+parameterFromUrl
 
     ).then(function (response) {
@@ -101,22 +112,90 @@ fetch("http://localhost:8080/api/game_view/"+parameterFromUrl
 }).then((dataFromServer) => {
     console.log(dataFromServer);
 gameView = dataFromServer;
-
+gameStatus(gameView);
 gameInfo(gameView);
-
 printShips(gameView);
+
+if (gameView.gamePlayers.length > 1) {
+
 gameHistory(gameView);
 ShipHasSunk_HideImage(gameView);
-
+}
 
 if (gameView.salvoes[0].length != 0){
 
 printSalvoes(gameView);
-
 printOpponentSalvoes(gameView);
 
 }
 })
+}
+/////////////////////////////////////////// GAME STATUS //////////////////////////////////////////////////
+
+function gameStatus (data){
+let results = data.whoWon;
+console.log(data);
+console.log(results);
+console.log(data.salvoes[0]);
+
+if(data.gameStatus == "currentPlayerPlaceShips"){
+  alert("Place your Ships by dragging boat images in the grid and confirm by clicking the button.");
+          document.getElementById("divSendShipsButton").style.visibility="visible";
+  document.getElementById("board_salvoes").style.display="none";
+ // window.location = "/web/game.html?gp=" + parameterFromUrl;
+ document.getElementById("table_history").style.visibility="hidden";
+ document.getElementById("table_sunk").style.visibility="hidden";
+
+} else if(data.gameStatus == "waitForOpponentToPlaceShips"){
+    interval;
+    alert("Wait for the opponent to place ships");
+              document.getElementById("divSendShipsButton").style.visibility="hidden";
+    document.getElementById("board_salvoes").style.display="none";
+    document.getElementById("table_history").style.visibility="hidden";
+    document.getElementById("table_sunk").style.visibility="hidden";
+
+} else if(data.gameStatus == "waitingForOpponent"){
+    interval;
+    alert("Wait for an opponent to join the game.");
+    document.getElementById("board_salvoes").style.display="none";
+        document.getElementById("divSendShipsButton").style.visibility="hidden";
+           document.getElementById("table_history").style.visibility="hidden";
+           document.getElementById("table_sunk").style.visibility="hidden";
+
+} else if(data.gameStatus == "turnCurrentPlayer"){
+    interval;
+      //  window.location.reload = "/web/game.html?gp=" + parameterFromUrl;
+        clearInterval(interval);
+    alert("Place your salvoes by clicking inside the grid.");
+    document.getElementById("board_salvoes").style.display="block";
+    document.getElementById("divSendShipsButton").style.visibility="hidden";
+    document.getElementById("divSendSalvoesButton").style.display="block";
+      document.getElementById("sendSalvoes").classList.add("button_blinking");
+                  setTimeout(function() { window.location.reload = "/web/game.html?gp=" + parameterFromUrl }, 15000);
+
+
+
+} else if(data.gameStatus == "turnOpponent"){
+//interval;
+    alert("Wait for the opponent to place salvoes");
+setTimeout(function(){ window.location = "/web/game.html?gp=" + parameterFromUrl; }, 12000);
+document.getElementById("divSendShipsButton").style.visibility="hidden";
+document.getElementById("divSendSalvoesButton").style.visibility="hidden";
+console.log(data.salvoes[0]);
+console.log(data.salvoes[1]);
+
+}  else if(data.gameStatus == "gameIsOver" && data.salvoes[0].length == data.salvoes[1].length){
+console.log("helloo");
+    alert("Game is Over, the winner is... " + results);
+    window.location = "/web/games.html";
+}
+}
+
+function refreshDataWaitingOpponent (data, gamePlayerId) {
+if(data.gameStatus == "waitingForOpponent" || data.gameStatus == 'turnOpponent'){
+    }
+    }
+
 
 //////////////////////////////////GAME HISTORY - HITS AND SUNK /////////////////////////////////////////////
 
@@ -127,6 +206,7 @@ let hitsOnCurrentPlayer;
 let sunkShipOpponent;
 let sunkShipCurrentPlayer;
 let gamePlayerId;
+let ShipSunkType_upperCase;
 
 for (let i= 0; i < data.gameHistory.length; i++){
 console.log(data.gameHistory[i]);
@@ -151,6 +231,9 @@ document.getElementById("tbody_sunk").innerHTML += '<tr>' +  sunkShipOpponent + 
 }
 
 else{
+console.log(ShipSunkType_upperCase);
+console.log(ShipSunkType_upperCase.toLowerCase());
+console.log(document.getElementById(ShipSunkType_upperCase.toLowerCase()));
 document.getElementById(ShipSunkType_upperCase.toLowerCase()).style.visibility ="hidden";
 
 
@@ -266,16 +349,9 @@ function getParameterByName(name) {
   return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
  }
 
-function printShips (data) {
-  let ship = data.ships;
-  $.each(ship, function (index, ship) {
-  $.each(ship.locations, function (index, location) {
-  $("#table_ship ." + location).css("background-color", '#00FF00');
-  $("#table_ship ." + location).html(ship.type);
 
-                })
-            })
- }
+
+ ///////////////////7777///////////DRAG AND DROP SHIPS ////////////////////////////////////////
 function onDragOver(event) {
   event.preventDefault();
 }
@@ -292,8 +368,8 @@ function onDragOver(event) {
        for (let i= 0; i< shipPosition.length; i++){
 
             let pos = shipPosition[i];
-           // console.log(document.querySelector("#table_ship ." + pos));
-     document.querySelector("#table_ship ." + pos).style.background="";
+           // console.log(document.querySelector("#table_ships ." + pos));
+     document.querySelector("#table_ships ." + pos).style.background="";
             }
 
   globalObject[Number(event.target.dataset.position)].shipLocations = [];
@@ -326,7 +402,7 @@ addImageAndColor (draggableElement, placedBoat, dropzone)
 function cleanColor (arrayLocationsShipSelected){
         for (let j= 0; j < arrayLocationsShipSelected.length; j++){
           console.log(arrayLocationsShipSelected[j]);
-           document.querySelector("#table_ship ." + arrayLocationsShipSelected[j]).style.background="";
+           document.querySelector("#table_ships ." + arrayLocationsShipSelected[j]).style.background="";
 }
 }
 
@@ -361,12 +437,12 @@ console.log(ship.dataset.orientation);
              let pos = placedBoat[0] + (Number(placedBoat[1]) + i);
 console.log(pos);
              console.log(((Number(placedBoat[1]) + Number(draggableElement.dataset.size) < 9)
-                                   && document.querySelector("#table_ship ." + pos).style.background !="green"));
+                                   && document.querySelector("#table_ships ." + pos).style.background !="green"));
 
           if ((Number(placedBoat[1]) + Number(draggableElement.dataset.size) < 10)
-          && document.querySelector("#table_ship ." + pos).style.background !="green"){
-            console.log(document.querySelector("#table_ship ." + pos));
-       //     document.querySelector("#table_ship ." + pos).style.background="green";
+          && document.querySelector("#table_ships ." + pos).style.background !="green"){
+            console.log(document.querySelector("#table_ships ." + pos));
+       //     document.querySelector("#table_ships ." + pos).style.background="#588080";
         //    arrayLocationsShipSelected.push(pos);
        //     dropzone.appendChild(draggableElement);
             console.log(arrayLocationsShipSelected);
@@ -374,7 +450,7 @@ console.log(pos);
 
           }else{
           allowDrawingShip = false;
-            console.log(" HORIZONTAL Not enough space for your ship here!");
+            alert(" HORIZONTAL Not enough space for your ship here!");
             break;
 }
   console.log(globalObject);
@@ -390,15 +466,15 @@ let pos = (String.fromCharCode(placedBoat[0].charCodeAt(0) + i) + (placedBoat[1]
 console.log(placedBoat[0].charCodeAt(0) + Number(draggableElement.dataset.size));
 
           if (((placedBoat[0].charCodeAt(0) + Number(draggableElement.dataset.size)) < 74)
-          && document.querySelector("#table_ship ." + pos).style.background !="green"){
-            console.log(document.querySelector("#table_ship ." + pos));
-       //     document.querySelector("#table_ship ." + pos).style.background="green";
+          && document.querySelector("#table_ships ." + pos).style.background !="green"){
+            console.log(document.querySelector("#table_ships ." + pos));
+       //     document.querySelector("#table_ships ." + pos).style.background="#588080";
         //    arrayLocationsShipSelected.push(pos);
             console.log(arrayLocationsShipSelected);
        //     moveShipVertical (draggableElement);
           }else{
             allowDrawingShip = false;
-            console.log(" VERTICAL Not enough space for your ship here!");
+            alert(" VERTICAL Not enough space for your ship here!");
             break;
 }
 }
@@ -430,12 +506,12 @@ let arrayLocationsShipSelected = globalObject[Number(draggableElement.dataset.po
 
   if (draggableElement.dataset.orientation == "V") {
     let pos = (String.fromCharCode(arrayLocationsShipSelectedSplit[0].charCodeAt(0) + j) + (arrayLocationsShipSelectedSplit[1]) );
-    document.querySelector("#table_ship ." + pos).style.background="green";
+    document.querySelector("#table_ships ." + pos).style.background="green";
     arrayLocationsShipSelected.push(pos);
 
     } else{
      let pos = arrayLocationsShipSelectedSplit[0] + (Number(arrayLocationsShipSelectedSplit[1]) + j);
-     document.querySelector("#table_ship ." + pos).style.background="green";
+     document.querySelector("#table_ships ." + pos).style.background="green";
       arrayLocationsShipSelected.push(pos);
     }
 
@@ -446,10 +522,19 @@ globalObject[Number(draggableElement.dataset.position)].shipLocations = arrayLoc
 }
 
 
+function printShips (data) {
+  let ship = data.ships;
+  $.each(ship, function (index, ship) {
+  $.each(ship.locations, function (index, location) {
+  $("#table_ships ." + location).css("background-color", 'green');
+  $("#table_ships ." + location).html(ship.type);
+
+                })
+            })
+ }
 
 
-
-
+/////////////////////////////////////////SALVOES////////////////////////////////////////////
 
 function printSalvoes (data) {
   console.log(parameterFromUrl);
@@ -459,8 +544,8 @@ function printSalvoes (data) {
 }
   $.each(salvo, function (index, salvo) {
   $.each(salvo.locations, function (index, location) {
-  $("#table_salvo ." + location).css("background-color", "yellow");
-  $("#table_salvo ." + location).html('Turn ' + salvo.turn);
+  $("#table_salvoes ." + location).css("background-color", "darkorange");
+  $("#table_salvoes ." + location).html('Turn ' + salvo.turn);
 
 })
 })
@@ -479,18 +564,18 @@ function printOpponentSalvoes (data) {
   console.log(salvo);
   $.each(salvo, function (index, salvo) {
   $.each(salvo.locations, function (index, locationSalvo_Opponent) {
-  var firstDiv = $("#table_ship ." + locationSalvo_Opponent);
+  var firstDiv = $("#table_ships ." + locationSalvo_Opponent);
   console.log(locationSalvo_Opponent);
   console.log(firstDiv.css('background-color'))
 
-  if (firstDiv.css('background-color') ==='rgb(0, 255, 0)'){
+  if (firstDiv.css('background-color') ==='rgb(0, 128, 0)'){
     var element = document.getElementsByClassName(locationSalvo_Opponent);
       element[0].classList.add("backgroundRed"); //[0] for left board.
       element[0].textContent = "HIT";
 
 }else{
-$("#table_ship ." + locationSalvo_Opponent).css({"background-color": "orange"})
-                    $("#table_ship ." + locationSalvo_Opponent).html('Turn ' + salvo.turn);
+$("#table_ships ." + locationSalvo_Opponent).css({"background-color": "orange"})
+                    $("#table_ships ." + locationSalvo_Opponent).html('Turn ' + salvo.turn);
 }
 })
 })
@@ -498,7 +583,7 @@ $("#table_ship ." + locationSalvo_Opponent).css({"background-color": "orange"})
 
 
 
-// LOGOUT FUNCTION
+//////////////////////////////////LOG OUT BUTTON //////////////////////////////////////////
 
 document.getElementById("logout-submit").addEventListener("click", function(e){
 e.preventDefault();
@@ -523,16 +608,17 @@ logout();
      }
 
 
+     /////////////////////////////////////////////////////////////////////////////////////////
 
 function clickOnSalvoCell () {
-  Array.from(document.querySelectorAll("#table_salvo td")).forEach(td => {
+  Array.from(document.querySelectorAll("#table_salvoes td")).forEach(td => {
   td.addEventListener("click", function(event){
   let salvoCell = event.target.className;
   let imageSalvo = '<img src="./images/salvo.png"/>';
 
   if (!td.classList.contains("salvoAdded")){
-    document.querySelector("#table_salvo ." + salvoCell).innerHTML += '<img src="./images/salvo.png"/>';
-    document.querySelector("#table_salvo ." + salvoCell).classList.add("salvoAdded");
+    document.querySelector("#table_salvoes ." + salvoCell).innerHTML += '<img src="./images/salvo.png"/>';
+    document.querySelector("#table_salvoes ." + salvoCell).classList.add("salvoAdded");
     opacityImgSalvo();
     console.log(salvoArray);
 

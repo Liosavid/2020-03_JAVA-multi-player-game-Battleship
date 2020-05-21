@@ -2,23 +2,31 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="./style/style.css">
-    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Ship Locations</title>
 </head>
 <body>
+<div class="container-fluid">
+<div class="row">
+    <div id="game-information" class="col-10 float-left justify-content-start"></div>
 
-<div id="form-logout">
+    <div id="form-logout"class="col justify-content-end float-right">
     <form onsubmit="return false">
-        <button id="logout-submit" >Log out</button>
+        <button id="logout-submit" class="btn btn-danger justify-content-end ml-5" >Log out</button>
     </form>
 
 </div>
 
-<div id="game-information"></div>
+</div>
+<div class="row justify-content-center">
+
 <div id="game-history">
 
-    <table id="table_history">
-        <caption>Game History:</caption>
+    <table id="table_history" class="table text-center mb-5 mr-3 mb-2">
         <tr>
             <th scope="col">Turn</th>
             <th scope="col">Hits on You</th>
@@ -28,8 +36,7 @@
 
     </table>
 
-    <table id="table_sunk">
-        <caption>Sunk Ships:</caption>
+    <table id="table_sunk" class="table ml-3 mb-5 justify-content-center text-center">
         <tr>
             <th scope="col">Opponent Sunk Ships</th>
         </tr>
@@ -45,26 +52,27 @@
 
 
 </div>
+</div>
+<div class="row text-center justify-content-center">
 
-<div id="tables_currentPlayer">
+<div id="tables_currentPlayer" class="justify-content-center">
 
-<div id="board_ships" class='parent'>
+<div id="board_ships" class="parent justify-content-center text-center">
     <div id="ships_images">
 
      <div><span> <img id="carrier" data-size="5" data-position="0" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' draggable="true" src="./images/carrier.png"/></span></div>
         <div><span> <img id="destroyer" data-size="3" data-position="3" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' src="./images/destroyer.png" draggable="true"/></span></div>
-        <div><span> <img id="patrol" data-size="2" data-position="4" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' src="./images/patrol.png" draggable="true" /></span></div>
+        <div><span> <img id="patrol_boat" data-size="2" data-position="4" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' src="./images/patrol.png" draggable="true" /></span></div>
         <div><span> <img id="submarine" data-size="3"data-position="2" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' src="./images/submarine.png" draggable="true" /></span></div>
         <div><span> <img id="battleship" data-size="4" data-position="1" data-orientation="H" class="draggable" ondragstart='onDragStart(event)' src="./images/battleship.png" draggable="true" /></span></div>
 
 </div>
-
-    <button id="sendShips">Send Ships</button>
-
-<table id="table_ship">
-    <caption>Your Ships:</caption>
-    <tr>
-        <td></td>
+<div id="divSendShipsButton">
+    <button id="sendShips" class="mb-2 d-flex justify-content-center text-center button_blinking">Confirm your Ships</button>
+</div>
+<table id="table_ships" class="justify-content-center mr-4">
+    <tr class="text-center">
+        <td ></td>
         <th scope="col">1</th>
         <th scope="col">2</th>
         <th scope="col">3</th>
@@ -74,8 +82,8 @@
         <th scope="col">7</th>
         <th scope="col">8</th>
     </tr>
-    <tbody  >
-    <tr class="test">
+    <tbody class="text-center">
+    <tr class="test text-center">
         <th scope="row">A</th>
         <td class="A1" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
         <td class="A2" ondrop='onDrop(event);' ondragover='onDragOver(event);'></td>
@@ -174,18 +182,18 @@
 </table>
 </div>
 
-    <div id="board_salvoes" class='parent'>
-        <div id="salvoes_images">
+    <div id="board_salvoes" class='parent text-center justify-content-center'>
+        <div id="salvoes_images" class="text-center">
 
             <div><span><img id="salvoImg" src="./images/salvo.png"/></span></div>
         </div>
 
-        <button id="sendSalvoes">Send Salvoes</button>
+        <div id="divSendSalvoesButton">
+        <button id="sendSalvoes" class="mb-2 d-flex justify-content-center text-center button_blinking">Confirm your Salvoes</button>
+        </div>
 
-
-        <table id="table_salvo">
-    <caption>Your Salvoes:</caption>
-    <tr>
+        <table id="table_salvoes" class="text-center ml-4">
+    <tr class="text-center">
         <td></td>
         <th scope="col">1</th>
         <th scope="col">2</th>
@@ -296,11 +304,15 @@
 
 </div>
     </div>
+</div>
 
-
-
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="./js/game.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -15,8 +15,11 @@ public class GamePlayer {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long gamePlayerId;
-
     private Date joinDate;
+    private GameStatus status;
+    private boolean isFirst;
+
+
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -34,11 +37,17 @@ public class GamePlayer {
     @OneToMany(mappedBy="gamePlayer", fetch=FetchType.EAGER)
     private Set<Salvo> salvoes = new HashSet<>();
 
-
     public GamePlayer (Game game, Player player){
         this.joinDate = new Date();
         this.player = player;
         this.game = game;
+    }
+
+    public GamePlayer (Game game, Player player, boolean isFirst){
+        this.joinDate = new Date();
+        this.player = player;
+        this.game = game;
+        this.isFirst = isFirst;
     }
 
     public GamePlayer() { }
@@ -76,6 +85,23 @@ public class GamePlayer {
         return player;
     }
 
+
+    public GameStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GameStatus status) {
+        this.status = status;
+    }
+
+    public enum GameStatus{
+        WaitingForShips,
+        WaitingForSecondPlayer,
+        WaitingForSalvoes,
+        WaitingForEnemy,
+        GameOver
+    }
+
     public void setPlayer(Player player) {
         this.player = player;
     }
@@ -95,6 +121,15 @@ public class GamePlayer {
     public void setSalvoes(Set<Salvo> salvoes) {
         this.salvoes = salvoes;
     }
+
+    public boolean isFirst() {
+        return isFirst;
+    }
+
+    public void setFirst(boolean first) {
+        isFirst = first;
+    }
+
 
     public Score getScore() {
         return player.getScore(game);

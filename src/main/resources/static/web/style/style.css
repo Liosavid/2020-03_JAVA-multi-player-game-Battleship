@@ -7,26 +7,28 @@
 
 body{
 display:flex;
-height:100vh;
 justify-content: center;
 align-items: center;
-background: linear-gradient(rgb(47,150,163), rgb(48,62,143));
 font-family: sans-serif;
 color:white;
 flex-direction: column;
 justify-content: space-around;
 margin: 0 50px;
-
+background-image: url('../images/Small_Sea_Wave_1920x1080.jpg');
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
 }
 
-
+/*
 table{
 margin: 0 20px;
 height: 250px;
 width:500px;
-
-
 }
+
+*/
+
 .backgroundRed{
     background-color:red !important;
     text-align:center;
@@ -44,6 +46,8 @@ flex-direction: row;
 margin: 0 300px;
 }
 
+/*
+
 td{
 
   min-width:63px;
@@ -53,17 +57,28 @@ td{
   color:black;
   font-weight: bold;
 text-align:center;
+align-content: center;
 }
+
+*/
+
+
+
 
 #table-leaderboard td, #table-gameboard td{
    font-size: 17px;
-   color:white;
+   color:black;
+   font-weight:bold;
      border: 2px dotted rgb(198, 198, 238);
       min-width:100px;
        height:70px;
        padding: 05px;
+       text-align:center;
+           vertical-align: middle;
+
 
  }
+
 
  #table-leaderboard th, #table-gameboard th{
       min-width:100px;
@@ -71,9 +86,15 @@ text-align:center;
 
   }
 
+
+
 th{
 
-  background-color: rgb(170, 102, 102);
+  background: linear-gradient(rgb(48, 116, 156), rgb(29, 92, 128));
+
+  color: black;
+  text-align: center;   
+
 }
 
 
@@ -106,10 +127,20 @@ text-align:center;
 }
 
 #forms-logs{
-display:flex;
-align-items:center;
-align-content:center;
+display:flex
+}
 
+#form-logout{
+margin-left: 1000px;
+top: -35px;
+}
+
+#form-logout button, #signup-submit, #login-submit{
+width:100px;
+}
+
+#top-loggedin{
+display:flex;
 
 }
 
@@ -127,12 +158,13 @@ text-align:center;
 
 
 #ships_images img{
-width:150px;
+width:110px;
 }
 
 #ships_images{
 display:flex;
 margin-bottom: 50px;
+margin-left: -30px;
 }
 
 
@@ -145,7 +177,7 @@ cursor:move;
     height:70px;
 }
 
-#table_ship td:hover{
+#table_ships td:hover, #table_salvoes td:hover{
 background: green;
 }
 
@@ -164,8 +196,13 @@ margin-bottom: 50px;
 }
 
 #salvoImg{
-width:150px;
+width:100px;
 }
+
+
+Td img{
+   width:40px;
+   }
 
 
 .opacity{
@@ -183,18 +220,31 @@ width: 650px;
 
 #table_history td, #table_sunk td{
 font-size: 15px;
+color:black;
+font-weight:bold;
 
 }
 
 #table_history th, #table_sunk th{
 font-size: 20px;
+text-align: center;   
+
 
 }
 
-#table_sunk{
-height: 30px;
+#table_sunk, #table_history{
+height: 10px;
+
 
 }
+
+#table_sunk th, #table_history th{
+  text-align: center;
+min-width:150px;  
+font-size: 15px;
+  
+  
+  }
 
 
 
@@ -203,3 +253,76 @@ display:flex;
 
 
 }
+
+#table_salvoes, #table_ships{
+width: 100px;
+
+}
+
+#table_salvoes td, #table_ships td{
+  min-width:50px;
+  height:40px;
+  border: 4px dotted #3399FF;
+  font-size: 8px;
+  color:black;
+  font-weight: bold;
+text-align:center;
+align-content: center;
+  
+  }
+
+
+#createNewGame{
+display: none;
+}
+
+
+  .button_blinking{
+  margin:auto;
+      background-color: #004A7F;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      border: none;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: inline-block;
+      font-family: Arial;
+      font-size: 20px;
+      padding: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      -webkit-animation: glowing 1500ms infinite;
+      -moz-animation: glowing 1500ms infinite;
+      -o-animation: glowing 1500ms infinite;
+      animation: glowing 1500ms infinite;
+    }
+    @-webkit-keyframes glowing {
+      0% { background-color: #163bb8; -webkit-box-shadow: 0 0 3px #163bb8; }
+      50% { background-color: #4400ff; -webkit-box-shadow: 0 0 40px #4400ff; }
+      100% { background-color: #3c439c; -webkit-box-shadow: 0 0 3px #3c439c; }
+    }
+    
+    @-moz-keyframes glowing {
+      0% { background-color: #163bb8; -webkit-box-shadow: 0 0 3px #163bb8; }
+      50% { background-color: #4400ff; -webkit-box-shadow: 0 0 40px #4400ff; }
+      100% { background-color: #3c439c; -webkit-box-shadow: 0 0 3px #3c439c; }
+    }
+    
+    @-o-keyframes glowing {
+        0% { background-color: #163bb8; -webkit-box-shadow: 0 0 3px #163bb8; }
+        50% { background-color: #4400ff; -webkit-box-shadow: 0 0 40px #4400ff; }
+        100% { background-color: #3c439c; -webkit-box-shadow: 0 0 3px #3c439c; }
+    }
+    
+    @keyframes glowing {
+      0% { background-color: #163bb8; -webkit-box-shadow: 0 0 3px #163bb8; }
+      50% { background-color: #4400ff; -webkit-box-shadow: 0 0 40px #4400ff; }
+      100% { background-color: #3c439c; -webkit-box-shadow: 0 0 3px #3c439c; }
+    }
+
+
+a, a:hover{
+    text-decoration: none;
+    color:black;
+
+  }

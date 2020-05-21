@@ -7,83 +7,90 @@
     <title>Salvo</title>
 </head>
 <body>
-<div class="container mt-5">
+<div class="container">
 
-    <div class="row mt-4 top_games">
+    <div class="row top_games">
 
-<div id="player-logged-in"></div>
-
-
-    <div class="row mt-4">
-<div>
-<button id="createNewGame" type="button">Start New Game</button>
+        <!--
+           <div id="player-logged-in"></div>
+           -->
 
 
-</div>
+        <div class="row mt-4">
 
-<div id="games-container">
-<div id="forms-logs">
-<div id="form-login"> <div class="form-title"> Sign in:</div>
-    <form onsubmit="return false">
-        <label>Name: <input type="text" id="username" name="username"></label>
-        <label>Password: <input type="text" id="password" name="password"></label>
-        <button  id="login-submit">Log in</button>
-    </form>
-</div>
-  <div id="form-logout" style="display: none">
-    <form onsubmit="return false">
-        <button id="logout-submit" >Log out</button>
-    </form>
-
-</div>
-
-<div id="form-signup"><div class="form-title"> Sign up:</div>
-    <form onsubmit="return false">
-        <label>Name: <input type="text"  class= "username" name="username"></label>
-        <label>Password: <input type="text" class="password" name="password"></label>
-        <button id="signup-submit">Sign up</button>
-
-    </form>
+            <div id="games-container">
+                <div id="forms-logs" class="ml-5">
+                    <div id="form-login">
+                        <form onsubmit="return false">
+                            <label>Name: <input type="text" id="username" name="username"></label>
+                            <label>Password: <input type="text" id="password" name="password"></label>
+                            <button  id="login-submit" class="btn btn-primary">Log in</button>
+                        </form>
+                    </div>
 
 
-</div>
-</div>
-</div>
+                    <div id="form-signup">
+                        <form onsubmit="return false">
+                            <label>Name: <input type="text"  class= "username" name="username"></label>
+                            <label>Password: <input type="text" class="password" name="password"></label>
+                            <button id="signup-submit" class="btn btn-primary">Sign up</button>
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="top-loggedin" class="row align-middle">
+        <div class="col">
+            <button id="createNewGame" type="button" class="button_blinking">Start New Game</button>
+
+
+        </div>
+
+        <div id="form-logout" style="display: none" class="align-middle col">
+            <form onsubmit="return false">
+                <button id="logout-submit" class="btn btn-danger align-middle" >Log out</button>
+            </form>
+
+        </div>
+        </div>
+        <div class="row">
+
+            <table id="table-leaderboard" class="col m-3 table table-striped">
+                <thead class="">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col" data-column="total" data-order="desc">Total</th>
+                    <th scope="col">Won</th>
+                    <th scope="col">Lost</th>
+                    <th scope="col">Tied</th>
+                    <th scope="col">Number of games</th>
+                </tr>
+
+                </thead>
+                <tbody id="leaderBoard" class="table-striped">
+                </tbody>
+            </table>
+
+
+            <table id="table-gameboard" class="col m-3 table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Created on</th>
+                    <th scope="col">Player 1</th>
+                    <th scope="col">Player 2</th>
+                    <th scope="col">Actions</th>
+                </tr>
+
+                </thead>
+                <tbody id="gameBoard">
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="row">
-
-<table id="table-leaderboard" class="col m-3">
-    <thead>
-    <tr>
-        <th scope="col">Name</th>
-        <th scope="col" data-column="total" data-order="desc">Total</th>
-        <th scope="col">Won</th>
-        <th scope="col">Lost</th>
-        <th scope="col">Tied</th>
-        <th scope="col">Number of games</th>
-    </tr>
-
-    </thead>
-    <tbody id="leaderBoard">
-    </tbody>
-</table>
-
-
-    <table id="table-gameboard" class="col m-3">
-        <thead>
-        <tr>
-            <th scope="col">Created on</th>
-            <th scope="col">Player 1</th>
-            <th scope="col">Player 2</th>
-            <th scope="col">Actions</th>
-        </tr>
-
-        </thead>
-        <tbody id="gameBoard">
-        </tbody>
-    </table>
-    </div>
-</div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

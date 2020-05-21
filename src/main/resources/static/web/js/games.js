@@ -1,6 +1,13 @@
 fetchData();
-
 let player;
+
+if (player){
+console.log(player);
+document.getElementById("form-logout").style.display = 'block';
+          document.getElementById("form-login").style.display = 'none';
+          document.getElementById("form-signup").style.display = 'none';
+           document.getElementById("createNewGame").style.display = 'block';
+}
 
 // GET THE INFO TO SHOW THE LEADERBOARD FOR ALL PLAYERS
 
@@ -43,7 +50,7 @@ sortable.sort(function(a, b) {
 console.log(sortable);
 sortable.forEach(score => {
 
-console.log(score);
+// console.log(score);
 let userName = score[0];
 let total = score[1].total;
 let wins = score[1].wins;
@@ -66,18 +73,33 @@ e.preventDefault();
 login();
 })
 
+
+function showButtonsIfLoggedIn(){
+
+if (player){
+          document.getElementById("form-logout").style.display = 'block';
+          document.getElementById("form-login").style.display = 'none';
+          document.getElementById("form-signup").style.display = 'none';
+           document.getElementById("createNewGame").style.display = 'block';
+
+}
+}
+
 // LOGIN FUNCTION
 
 function login() {
+
 let userName= document.getElementById("username");
 let password= document.getElementById("password");
 
-      var ourData = {
+     var ourData = {
         userName: userName.value,
         password: password.value
       };
+            console.log(ourData);
 
       console.log(userName.value);
+    //  console.log(ourData);
 
       fetch("/api/login", {
         credentials: "include",
@@ -86,21 +108,31 @@ let password= document.getElementById("password");
         },
         method: "POST",
         body: getBody(ourData)
+
       })
         .then(function(data) {
+
+         if(data.ok){
           console.log("Request success: ", data);
-          document.getElementById("form-logout").style.display = 'block';
-          alert("You are logged in");
-          let playerLoggedIn = document.getElementById("player-logged-in");
-          playerLoggedIn.innerHTML = userName.value;
-    //      UserLoggedIn(data);
-          fetchData();
+                   alert("You are logged in");
+                   window.location= "/web/games.html";
+                   let playerLoggedIn = document.getElementById("player-logged-in");
+                   playerLoggedIn.innerHTML = userName.value;
+             //      UserLoggedIn(data);
+                   fetchData();
+         }else{
+
+         console.log("Something went wrong!")
+         }
+
+
         })
         .catch(function(error) {
           console.log("Request failure: ", error);
         });
 
       function getBody(json) {
+      console.log(json)
         var body = [];
         for (var key in json) {
           var encKey = encodeURIComponent(key);
@@ -129,11 +161,11 @@ logout();
          .then(function(data) {
            console.log("Logout success: ", data);
                alert("You are logged out");
+               window.location.href = "/web/games.html";
                document.getElementById("form-logout").style.display = 'none';
                document.getElementById("player-logged-in").style.display = 'none';
-             //  UserLoggedIn(data.player);
-
-
+                         document.getElementById("form-login").style.display = 'block';
+                         document.getElementById("form-signup").style.display = 'block';
 
          })
          .catch(function(error) {
@@ -153,10 +185,15 @@ signUp();
     let userName= document.getElementsByClassName("username");
     let password= document.getElementsByClassName("password");
 
-          var ourData = {
+       let ourData = {
             userName: userName[0].value,
             password: password[0].value
           };
+
+          document.getElementById("username").value = userName[0].value;
+          document.getElementById("password").value = password[0].value;
+
+
 
 console.log(ourData);
 
@@ -166,17 +203,13 @@ console.log(ourData);
     'Content-Type': 'application/json'
     },
     body:JSON.stringify(ourData)
-    } ).then(res=> res.json()).then(data=> console.log(data))
+    } ).then(res=> res.json()).then(data=> {
+    console.log(data)
+    login();
+    });
 
- function getBody(json) {
-        var body = [];
-        for (var key in json) {
-          var encKey = encodeURIComponent(key);
-          var encVal = encodeURIComponent(json[key]);
-          body.push(encKey + "=" + encVal);
-        }
-        return body.join("&");
-      }
+
+
 
 }
 
@@ -197,6 +230,9 @@ player = dataFromServer.player;
 console.log(gamesData);
 updateGamesBoard(gamesData);
 console.log(gamesData.player);
+
+showButtonsIfLoggedIn(gamesData.player);
+
 
 })
 
@@ -255,7 +291,7 @@ if(gpl.player.user_id == player.user_id && gameplayers.length == 2){
  console.log("REJOIN");
  console.log(gpl.gamePlayer_id);
 
- return ('<a href='+ `/web/game.html?gp=${gpl.gamePlayer_id}` + '>' + "REJOIN" +'</a>');
+ return ('<button type="button" class="btn btn-warning">' + '<a href='+ `/web/game.html?gp=${gpl.gamePlayer_id}` + '>' + "REJOIN" +'</a>' +'</button>' );
 
  }
 
@@ -264,16 +300,21 @@ if(gpl.player.user_id == player.user_id && gameplayers.length == 2){
   console.log("REJOIN");
   console.log(gpl.gamePlayer_id);
 
-  return ("Waiting for opponent" + '<td>'+ '<a href='+ `/web/game.html?gp=${gpl.gamePlayer_id}` + '>' + "REJOIN" +'</a>' + '</td>');
+  return ("Waiting for opponent" + '<td>'+ '<button type="button" class="btn btn-warning">' + '<a href='+ `/web/game.html?gp=${gpl.gamePlayer_id}` + '>' + "REJOIN" +'</a>' +'</button>' + '</td>');
 
   }
 
 else if (gameplayers.length < 2){
 console.log("JOIN");
 
-return ("Waiting for opponent" + '<td>'+ '<button id=" '+gameId+' "class="link_joinGame" >' + "JOIN" +'</button>' + '</td>');}
+return ("Waiting for opponent" + '<td>'+ '<button type="button" id=" '+gameId+' "class="link_joinGame btn btn-success" >' + "JOIN" +'</button>' + '</td>');}
 }
 ).join('')
+}
+
+else{
+
+return ("");
 }
 
 

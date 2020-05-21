@@ -16,6 +16,7 @@ public class Game {
     @GenericGenerator(name = "native", strategy = "native")
     private long gameId;
     private Date gameCreationDate;
+    private boolean gameIsOver;
 
 
     @OneToMany(mappedBy="game", fetch = FetchType.EAGER)
@@ -65,6 +66,22 @@ public class Game {
 
     public void setScores(Set<Score> scores) {
         this.scores = scores;
+    }
+
+    public boolean isGameIsOver() {
+        return gameIsOver;
+    }
+
+    public void setGameIsOver(boolean gameIsOver) {
+        this.gameIsOver = gameIsOver;
+    }
+
+    public boolean hasScore () {
+        return (!getScores().isEmpty());
+    }
+
+    public boolean isFull() {
+        return this.getGamePlayers().size() > 1;
     }
 
     @JsonIgnore
