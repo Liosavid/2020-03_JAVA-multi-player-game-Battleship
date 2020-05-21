@@ -104,7 +104,7 @@ console.log(parameterFromUrl);
 getData ();
 
 function getData () {
-fetch("http://localhost:8080/api/game_view/"+parameterFromUrl
+fetch("/api/game_view/"+parameterFromUrl
 
     ).then(function (response) {
     return response.json();
