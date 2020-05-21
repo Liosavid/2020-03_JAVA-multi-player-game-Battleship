@@ -11,7 +11,7 @@ document.getElementById("form-logout").style.display = 'block';
 
 // GET THE INFO TO SHOW THE LEADERBOARD FOR ALL PLAYERS
 
-fetch("http://localhost:8080/api/leaderboard", {mode: 'no-cors'}
+fetch("http://localhost:8080/api/leaderboard", {mode: 'cors'}
 
     ).then(function (response) {
     return response.json();
